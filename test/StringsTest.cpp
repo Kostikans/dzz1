@@ -6,7 +6,7 @@
 extern "C" {
 #include "DateString.h"
 }
-
+ 
 TEST(string1,str1)
 {
     StringData str1;
