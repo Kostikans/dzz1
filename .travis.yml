@@ -45,11 +45,11 @@ matrix:
 
 script:
   # скрипт сборки и тестирования проекта:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind ./dzz1 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck *.c *.h ; fi
-  
+
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
   - cmake --build .
   - ctest --output-on-failure
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind ./dzz1 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck *.c *.h ; fi
