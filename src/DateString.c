@@ -1,20 +1,24 @@
 #include "DateString.h"
+#include "string.h"
 
-void print(char ** strings,int count) {
+#define PATTERN "([0-1][0-9]|[2][0-3]):[0-5][0-9]:[0-5][0-9]"
+
+size_t print(char ** strings,int count) {
+    if(strings == NULL)
+        return 0;
     size_t c = 0;
     while (c < count) {
         char *p = strings[c];
         size_t i = 0;
-        while (p[i] != '\0') {
-            printf("%c", p[i]);
-            ++i;
-        }
+        printf("%s", p);
         printf("%c", '\n');
         ++c;
     }
 }
 
 size_t getDateStringsReg(StringData *pStrings, StringData *pResStrings) {
+    if(pStrings == NULL)
+        return 0;
     size_t size = 8;
     pResStrings->data = (char**)malloc(size * sizeof(char *));
     if(pResStrings->data == NULL)
@@ -37,21 +41,21 @@ size_t getDateStringsReg(StringData *pStrings, StringData *pResStrings) {
                 if(pResStrings->data == NULL)
                     return 0;
             }
-            int i = 0 ;
+
             size_t lineSize = 128;
             pResStrings->data[resCount] = (char*)calloc(sizeof(char),lineSize);
             if(pResStrings->data[resCount] == NULL)
                 return 0;
-            while(p[i] != '\0'){
-                if(i == lineSize) {
-                    lineSize *= 2;
-                    pResStrings->data[resCount] = (char *) realloc(pResStrings->data[resCount], lineSize * sizeof(char ));
-                }
-                if( pResStrings->data[resCount]  == NULL)
+
+            unsigned long len = strlen(pStrings->data[c]);
+            if(len > lineSize)
+            {
+                lineSize *= 2;
+                pResStrings->data[resCount] = (char*)realloc(pResStrings->data,lineSize * sizeof(char));
+                if(pResStrings->data[resCount] == NULL)
                     return 0;
-                pResStrings->data[resCount][i] = pStrings->data[c][i];
-                ++i;
             }
+            memcpy(pResStrings->data[resCount],pStrings->data[c], len);
             ++resCount;
         }
         ++c;
@@ -91,7 +95,9 @@ size_t getStringsFromInput(StringData *pStrings)
         if(count == 5)
             break;
     }
-    free(line);
+    if(line != NULL){
+        free(line);
+    }
     pStrings->size = count;
 }
 
