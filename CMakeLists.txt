@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.9)
 project(dzz1 C)
 enable_language(C CXX)
 set(CMAKE_C_FLAGS  "-std=c11")
