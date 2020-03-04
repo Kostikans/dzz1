@@ -52,4 +52,5 @@ script:
   - cmake --build .
   - ctest --output-on-failure
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind ./dzz1 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=warning,performance,information,style ; fi
+  - cd ..
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=warning,performance,information ./src ./test; fi
