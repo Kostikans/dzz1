@@ -50,5 +50,5 @@ script:
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
   - cmake --build .
   - ctest --output-on-failure
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind ./C_IZ1 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --error-exitcode=1 --enable=warning,performance,information,style *.c *.h ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind ./dzz1 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck *.c *.h ; fi
